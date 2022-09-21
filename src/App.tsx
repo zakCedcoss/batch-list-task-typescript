@@ -13,7 +13,7 @@ function App() {
   const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
-    let s = "";
+    let s: string = "";
     groupsArray.map((g, j) => {
       g.rowsArray?.map((r, i) => {
         const { firstSelect, secondSelect, thirdSelect } = r;
@@ -27,7 +27,7 @@ function App() {
         }
       });
       if (groupsArray.length > 1 && groupsArray.length - 1 !== j) {
-        s += "\nOR\n";
+        s += " OR ";
       }
     });
 
