@@ -6,9 +6,15 @@ type GroupProps = {
   group: GroupType;
   groupsArray: GroupType[];
   handleSetGroupsArray: (data: GroupType[]) => void;
+  isError: Boolean;
 };
 
-function Group({ group, groupsArray, handleSetGroupsArray }: GroupProps) {
+function Group({
+  group,
+  groupsArray,
+  handleSetGroupsArray,
+  isError,
+}: GroupProps) {
   const [rowsArray, setRowsArray] = useState<RowType[]>([
     {
       id: Math.floor(Math.random() * 554861277),
@@ -65,6 +71,7 @@ function Group({ group, groupsArray, handleSetGroupsArray }: GroupProps) {
             row={row}
             rowsArray={rowsArray}
             handleSetRowsArray={handleSetRowsArray}
+            isError={isError}
           />
         );
       })}

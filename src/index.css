@@ -10,6 +10,7 @@ body {
   height: 100vh;
 }
 input,select {
+  outline: none;
   width: 90%;
   padding: 0.5rem;
   border-radius: 5px;
@@ -30,4 +31,19 @@ button {
 button:hover {
   color: white;
   background-color: black;
+}
+.error {
+  font-size: 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 30%;
+  background-color: red;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-inline: auto;
+  z-index: 1;
+}
+.error-box {
+  border: 1px solid red;
 }

@@ -6,9 +6,10 @@ type RowProps = {
   row: RowType;
   rowsArray: RowType[];
   handleSetRowsArray: (data: RowType[]) => void;
+  isError: Boolean;
 };
 
-function Row({ row, rowsArray, handleSetRowsArray }: RowProps) {
+function Row({ row, rowsArray, handleSetRowsArray, isError }: RowProps) {
   const selectOne = ["A", "B", "C", "D", "E"];
   const selectTwo = [
     "Equals",
@@ -23,6 +24,9 @@ function Row({ row, rowsArray, handleSetRowsArray }: RowProps) {
   const [secondSelect, setSecondSelect] = useState<string>("");
   const [thirdSelect, setThirdSelect] = useState<string>("");
 
+  const [isFirstEmpty, setIsFirstEmpty] = useState<Boolean>(true);
+  const [isSecondEmpty, setIsSecondEmpty] = useState<Boolean>(true);
+  const [isThirdEmpty, setIsThirdEmpty] = useState<Boolean>(true);
   //   console.log(firstSelect, secondSelect, thirdSelect);
   //   console.log(row);
 
@@ -34,16 +38,37 @@ function Row({ row, rowsArray, handleSetRowsArray }: RowProps) {
   };
 
   const handleValueChange = (name: string, value: string) => {
+    console.log(name, value);
     if (name === "firstSelect") {
       setFirstSelect(value);
       setSecondSelect("");
       setThirdSelect("");
+      if (value === "") {
+        setIsFirstEmpty(true);
+      } else {
+        setIsFirstEmpty(false);
+      }
+      setIsSecondEmpty(true);
+      setIsThirdEmpty(true);
     }
     if (name === "secondSelect") {
       setSecondSelect(value);
       setThirdSelect("");
+      if (value === "") {
+        setIsSecondEmpty(true);
+      } else {
+        setIsSecondEmpty(false);
+      }
+      setIsThirdEmpty(true);
     }
-    if (name === "thirdSelect") setThirdSelect(value);
+    if (name === "thirdSelect") {
+      setThirdSelect(value);
+      if (value === "") {
+        setIsThirdEmpty(true);
+      } else {
+        setIsThirdEmpty(false);
+      }
+    }
   };
 
   useEffect(() => {
@@ -70,10 +95,10 @@ function Row({ row, rowsArray, handleSetRowsArray }: RowProps) {
         <div className="dropdown">
           <p>Select By</p>
           <select
+            className={isError && isFirstEmpty ? "error-box" : ""}
             name="firstSelect"
             onChange={(e) => handleValueChange(e.target.name, e.target.value)}
             value={firstSelect}
-            required={true}
           >
             <option value="">Select</option>
             {selectOne.map((opt, i) => {
@@ -88,10 +113,10 @@ function Row({ row, rowsArray, handleSetRowsArray }: RowProps) {
         <div className="dropdown">
           <p>Select By</p>
           <select
+            className={isError && isSecondEmpty ? "error-box" : ""}
             name="secondSelect"
             onChange={(e) => handleValueChange(e.target.name, e.target.value)}
             value={secondSelect}
-            required={true}
           >
             <option value="">Select</option>
             {selectTwo.map((opt, i) => {
@@ -106,10 +131,10 @@ function Row({ row, rowsArray, handleSetRowsArray }: RowProps) {
         <div className="dropdown">
           {secondSelect === "Equals" ? (
             <select
+              className={isError && isThirdEmpty ? "error-box" : ""}
               name="thirdSelect"
               onChange={(e) => handleValueChange(e.target.name, e.target.value)}
               value={thirdSelect}
-              required={true}
             >
               <option value="">Select</option>
               {selectThree.map((opt, i) => {
@@ -124,7 +149,7 @@ function Row({ row, rowsArray, handleSetRowsArray }: RowProps) {
             <>
               <p>Value</p>
               <input
-                required={true}
+                className={isError && isThirdEmpty ? "error-box" : ""}
                 type="text"
                 name="thirdSelect"
                 value={thirdSelect}

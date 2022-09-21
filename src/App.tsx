@@ -12,6 +12,7 @@ function App() {
   ]);
   const [message, setMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [isError, setIsError] = useState<Boolean>(false);
 
   useEffect(() => {
     let interval = setTimeout(() => {
@@ -19,7 +20,7 @@ function App() {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [errorMessage]);
+  }, [errorMessage, isError]);
 
   useEffect(() => {
     let s: string = "";
@@ -61,6 +62,7 @@ function App() {
       rowsArray: [],
     };
     setGroupsArray([...groupsArray, newGroup]);
+    setIsError(false);
   };
 
   const handleSubmit = (): void => {
@@ -79,9 +81,11 @@ function App() {
     if (error) {
       console.log("Please fill all fields !!!");
       setErrorMessage("Please fill all fields !!!");
+      setIsError(true);
     } else {
       console.log(groupsArray);
       setErrorMessage("Check CONSOLE.LOG in Developer Tool");
+      setIsError(false);
     }
   };
 
@@ -90,7 +94,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="error">{errorMessage}</div>
+      {errorMessage && <div className="error">{errorMessage}</div>}
       {message && <div className="group-head">{message}</div>}
       <button onClick={handleAddGroup}>Add Group</button>
       {groupsArray.map((group) => {
@@ -100,6 +104,7 @@ function App() {
             group={group}
             groupsArray={groupsArray}
             handleSetGroupsArray={handleSetGroupsArray}
+            isError={isError}
           />
         );
       })}
