@@ -7,9 +7,16 @@ type RowProps = {
   rowsArray: RowType[];
   handleSetRowsArray: (data: RowType[]) => void;
   isError: Boolean;
+  handleSetIsError: (value: Boolean) => void;
 };
 
-function Row({ row, rowsArray, handleSetRowsArray, isError }: RowProps) {
+function Row({
+  row,
+  rowsArray,
+  handleSetRowsArray,
+  isError,
+  handleSetIsError,
+}: RowProps) {
   const selectOne = ["A", "B", "C", "D", "E"];
   const selectTwo = [
     "Equals",

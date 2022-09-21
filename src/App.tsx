@@ -56,6 +56,10 @@ function App() {
     setGroupsArray(data);
   };
 
+  const handleSetIsError = (value: Boolean) => {
+    setIsError(value);
+  };
+
   const handleAddGroup = (): void => {
     const newGroup: GroupType = {
       id: Math.floor(Math.random() * 5684567),
@@ -105,6 +109,7 @@ function App() {
             groupsArray={groupsArray}
             handleSetGroupsArray={handleSetGroupsArray}
             isError={isError}
+            handleSetIsError={handleSetIsError}
           />
         );
       })}

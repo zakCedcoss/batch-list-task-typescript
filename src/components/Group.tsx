@@ -7,6 +7,7 @@ type GroupProps = {
   groupsArray: GroupType[];
   handleSetGroupsArray: (data: GroupType[]) => void;
   isError: Boolean;
+  handleSetIsError: (value: Boolean) => void;
 };
 
 function Group({
@@ -14,6 +15,7 @@ function Group({
   groupsArray,
   handleSetGroupsArray,
   isError,
+  handleSetIsError,
 }: GroupProps) {
   const [rowsArray, setRowsArray] = useState<RowType[]>([
     {
@@ -50,6 +52,7 @@ function Group({
       thirdSelect: "",
     };
     setRowsArray([...rowsArray, newRow]);
+    handleSetIsError(false);
   };
 
   const handleGroupDelete = (): void => {
@@ -72,6 +75,7 @@ function Group({
             rowsArray={rowsArray}
             handleSetRowsArray={handleSetRowsArray}
             isError={isError}
+            handleSetIsError={handleSetIsError}
           />
         );
       })}
