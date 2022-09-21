@@ -26,7 +26,11 @@ function App() {
           s += " AND ";
         }
       });
-      if (groupsArray.length > 1 && groupsArray.length - 1 !== j) {
+      if (
+        groupsArray.length > 1 &&
+        groupsArray.length - 1 !== j &&
+        groupsArray[j].rowsArray[0].firstSelect !== ""
+      ) {
         s += " OR ";
       }
     });
@@ -46,8 +50,8 @@ function App() {
     setGroupsArray([...groupsArray, newGroup]);
   };
 
-  // console.log(groupsArray);
-  console.log(message);
+  console.log(groupsArray);
+  // console.log(message);
 
   return (
     <div className="App">

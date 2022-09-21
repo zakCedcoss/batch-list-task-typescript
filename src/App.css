@@ -5,6 +5,13 @@
   width: 150px;
   transform: translateX(10%);
 }
+.group-head {
+  width: max-content;
+  background-color: hotpink;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
 /* GROUP STYLES */
 .group {
   padding: 1rem;

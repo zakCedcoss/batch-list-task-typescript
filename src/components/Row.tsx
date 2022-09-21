@@ -34,7 +34,11 @@ function Row({ row, rowsArray, handleSetRowsArray }: RowProps) {
   };
 
   const handleValueChange = (name: string, value: string) => {
-    if (name === "firstSelect") setFirstSelect(value);
+    if (name === "firstSelect") {
+      setFirstSelect(value);
+      setSecondSelect("");
+      setThirdSelect("");
+    }
     if (name === "secondSelect") {
       setSecondSelect(value);
       setThirdSelect("");
@@ -69,6 +73,7 @@ function Row({ row, rowsArray, handleSetRowsArray }: RowProps) {
             name="firstSelect"
             onChange={(e) => handleValueChange(e.target.name, e.target.value)}
             value={firstSelect}
+            required={true}
           >
             <option value="">Select</option>
             {selectOne.map((opt, i) => {
@@ -86,6 +91,7 @@ function Row({ row, rowsArray, handleSetRowsArray }: RowProps) {
             name="secondSelect"
             onChange={(e) => handleValueChange(e.target.name, e.target.value)}
             value={secondSelect}
+            required={true}
           >
             <option value="">Select</option>
             {selectTwo.map((opt, i) => {
@@ -103,6 +109,7 @@ function Row({ row, rowsArray, handleSetRowsArray }: RowProps) {
               name="thirdSelect"
               onChange={(e) => handleValueChange(e.target.name, e.target.value)}
               value={thirdSelect}
+              required={true}
             >
               <option value="">Select</option>
               {selectThree.map((opt, i) => {
