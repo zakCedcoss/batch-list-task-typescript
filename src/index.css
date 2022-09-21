@@ -15,6 +15,7 @@ input,select {
   border-radius: 5px;
   margin-block: 0.5rem;
   box-shadow: 0 0 10px #c5c5c5;
+  /* border: 1px solid red; */
 }
 button {
   outline: none;
