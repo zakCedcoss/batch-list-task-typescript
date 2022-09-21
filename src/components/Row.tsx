@@ -38,7 +38,6 @@ function Row({ row, rowsArray, handleSetRowsArray, isError }: RowProps) {
   };
 
   const handleValueChange = (name: string, value: string) => {
-    console.log(name, value);
     if (name === "firstSelect") {
       setFirstSelect(value);
       setSecondSelect("");
