@@ -1,5 +1,6 @@
+import { Card, Icon, Select, Stack, TextField } from "@shopify/polaris";
 import { useEffect, useState } from "react";
-import { FaTrash } from "react-icons/fa";
+import { DeleteMajor } from "@shopify/polaris-icons";
 import { RowType } from "../types";
 
 type RowProps = {
@@ -17,15 +18,27 @@ function Row({
   isError,
   handleSetIsError,
 }: RowProps) {
-  const selectOne = ["A", "B", "C", "D", "E"];
-  const selectTwo = [
-    "Equals",
-    "Not Equals",
-    "Contains",
-    "Not Contains",
-    "Start",
+  const selectOne = [
+    { label: "A", value: "A" },
+    { label: "B", value: "B" },
+    { label: "C", value: "C" },
+    { label: "D", value: "D" },
+    { label: "E", value: "E" },
   ];
-  const selectThree = ["V", "W", "X", "Y", "Z"];
+  const selectTwo = [
+    { label: "Equals", value: "Equals" },
+    { label: "Not Equals", value: "Not Equals" },
+    { label: "Contains", value: "Contains" },
+    { label: "Not Contains", value: "Not Contains" },
+    { label: "Start", value: "Start" },
+  ];
+  const selectThree = [
+    { label: "V", value: "V" },
+    { label: "W", value: "W" },
+    { label: "X", value: "X" },
+    { label: "Y", value: "Y" },
+    { label: "Z", value: "Z" },
+  ];
 
   const [firstSelect, setFirstSelect] = useState<string>("");
   const [secondSelect, setSecondSelect] = useState<string>("");
@@ -44,7 +57,7 @@ function Row({
     handleSetRowsArray(newRowsArray);
   };
 
-  const handleValueChange = (name: string, value: string) => {
+  const handleValueChange = (value: string, name: string) => {
     if (name === "firstSelect") {
       setFirstSelect(value);
       setSecondSelect("");
@@ -96,84 +109,59 @@ function Row({
 
   return (
     <div className="row">
-      <p>Row ID: {row.id}</p>
-      <div className="dropdown-selection">
-        <div className="dropdown">
-          <p>Select By</p>
-          <select
-            className={isError && isFirstEmpty ? "error-box" : ""}
-            name="firstSelect"
-            onChange={(e) => handleValueChange(e.target.name, e.target.value)}
+      <Stack distribution="equalSpacing">
+        <Stack.Item fill>
+          <Select
+            id="firstSelect"
+            label="Select By"
+            placeholder="Select"
+            options={selectOne}
+            onChange={handleValueChange}
             value={firstSelect}
-          >
-            <option value="">Select</option>
-            {selectOne.map((opt, i) => {
-              return (
-                <option value={opt} key={i}>
-                  {opt}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="dropdown">
-          <p>Select By</p>
-          <select
-            className={isError && isSecondEmpty ? "error-box" : ""}
-            name="secondSelect"
-            onChange={(e) => handleValueChange(e.target.name, e.target.value)}
+            error={isError && isFirstEmpty ? true : false}
+          />
+        </Stack.Item>
+        <Stack.Item fill>
+          <Select
+            id="secondSelect"
+            label="Select By"
+            placeholder="Select"
+            options={selectTwo}
+            onChange={handleValueChange}
             value={secondSelect}
-          >
-            <option value="">Select</option>
-            {selectTwo.map((opt, i) => {
-              return (
-                <option value={opt} key={i}>
-                  {opt}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="dropdown">
+            error={isError && isSecondEmpty ? true : false}
+          />
+        </Stack.Item>
+        <Stack.Item fill>
           {secondSelect === "Equals" ? (
-            <select
-              className={isError && isThirdEmpty ? "error-box" : ""}
-              name="thirdSelect"
-              onChange={(e) => handleValueChange(e.target.name, e.target.value)}
+            <Select
+              id="thirdSelect"
+              label="Select By"
+              placeholder="Select"
+              options={selectThree}
+              onChange={handleValueChange}
               value={thirdSelect}
-            >
-              <option value="">Select</option>
-              {selectThree.map((opt, i) => {
-                return (
-                  <option value={opt} key={i}>
-                    {opt}
-                  </option>
-                );
-              })}
-            </select>
+              error={isError && isThirdEmpty ? true : false}
+            />
           ) : (
-            <>
-              <p>Value</p>
-              <input
-                className={isError && isThirdEmpty ? "error-box" : ""}
-                type="text"
-                name="thirdSelect"
-                value={thirdSelect}
-                onChange={(e) =>
-                  handleValueChange(e.target.name, e.target.value)
-                }
-              />
-            </>
+            <TextField
+              id="thirdSelect"
+              label="Value"
+              value={thirdSelect}
+              onChange={handleValueChange}
+              autoComplete="off"
+              error={isError && isThirdEmpty ? true : false}
+            />
           )}
-        </div>
-        <div className="dropdown">
-          {rowsArray.length !== 1 && (
+        </Stack.Item>
+        {rowsArray.length !== 1 && (
+          <Stack.Item>
             <div className="delete" onClick={handleRowDelete}>
-              <FaTrash />
+              <Icon source={DeleteMajor} color="base" />
             </div>
-          )}
-        </div>
-      </div>
+          </Stack.Item>
+        )}
+      </Stack>
     </div>
   );
 }

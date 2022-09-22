@@ -1,3 +1,4 @@
+import { Button, Card, TextStyle } from "@shopify/polaris";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Group from "./components/Group";
@@ -98,22 +99,36 @@ function App() {
 
   return (
     <div className="App">
-      {errorMessage && <div className="error">{errorMessage}</div>}
-      {message && <div className="group-head">{message}</div>}
-      <button onClick={handleAddGroup}>Add Group</button>
-      {groupsArray.map((group) => {
-        return (
-          <Group
-            key={group.id}
-            group={group}
-            groupsArray={groupsArray}
-            handleSetGroupsArray={handleSetGroupsArray}
-            isError={isError}
-            handleSetIsError={handleSetIsError}
-          />
-        );
-      })}
-      <button onClick={handleSubmit}>Submit</button>
+      <Card>
+        {errorMessage && <div className="error">{errorMessage}</div>}
+        {message && (
+          <div className="query">
+            <TextStyle>{message}</TextStyle>
+          </div>
+        )}
+
+        {groupsArray.map((group) => {
+          return (
+            <Group
+              key={group.id}
+              group={group}
+              groupsArray={groupsArray}
+              handleSetGroupsArray={handleSetGroupsArray}
+              isError={isError}
+              handleSetIsError={handleSetIsError}
+              handleAddGroup={handleAddGroup}
+            />
+          );
+        })}
+        <div className="see-query-result">
+          <Button primary>See Query Result</Button>
+        </div>
+      </Card>
+      <div className="submit-btn">
+        <Button primary onClick={handleSubmit}>
+          Submit
+        </Button>
+      </div>
     </div>
   );
 }

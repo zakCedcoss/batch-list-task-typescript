@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Row from "./Row";
 import { GroupType, RowType } from "../types";
+import { Button, ButtonGroup, Card, Stack } from "@shopify/polaris";
 
 type GroupProps = {
   group: GroupType;
@@ -8,6 +9,7 @@ type GroupProps = {
   handleSetGroupsArray: (data: GroupType[]) => void;
   isError: Boolean;
   handleSetIsError: (value: Boolean) => void;
+  handleAddGroup: () => void;
 };
 
 function Group({
@@ -16,6 +18,7 @@ function Group({
   handleSetGroupsArray,
   isError,
   handleSetIsError,
+  handleAddGroup,
 }: GroupProps) {
   const [rowsArray, setRowsArray] = useState<RowType[]>([
     {
@@ -66,23 +69,37 @@ function Group({
 
   return (
     <div className="group">
-      <button onClick={handleAddRow}>Add Row</button>
-      {rowsArray.map((row) => {
-        return (
-          <Row
-            key={row.id}
-            row={row}
-            rowsArray={rowsArray}
-            handleSetRowsArray={handleSetRowsArray}
-            isError={isError}
-            handleSetIsError={handleSetIsError}
-          />
-        );
-      })}
-      <p>Group ID: {group.id}</p>
-      {groupsArray.length !== 1 && (
-        <button onClick={handleGroupDelete}>Delete Group</button>
-      )}
+      <Card sectioned>
+        {rowsArray.map((row) => {
+          return (
+            <Row
+              key={row.id}
+              row={row}
+              rowsArray={rowsArray}
+              handleSetRowsArray={handleSetRowsArray}
+              isError={isError}
+              handleSetIsError={handleSetIsError}
+            />
+          );
+        })}
+        <div className="add-row-btn">
+          <Button plain onClick={handleAddRow}>
+            Add Row
+          </Button>
+        </div>
+      </Card>
+      <div className="remove-group-btn">
+        <ButtonGroup>
+          {group.id === groupsArray[groupsArray.length - 1].id && (
+            <Button onClick={handleAddGroup}>Add Group</Button>
+          )}
+          {groupsArray.length > 1 && (
+            <Button destructive onClick={handleGroupDelete}>
+              Remove Group
+            </Button>
+          )}
+        </ButtonGroup>
+      </div>
     </div>
   );
 }
